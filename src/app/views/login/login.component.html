@@ -1,7 +1,7 @@
  <div class="login-container">
   <div class="login-box">
     <div class="microsoft-logo">
-      <img src="../../../assets/LogoDeLaApliacacion2.png" alt="Logo">
+      <img src="../../../assets/LogoDeLaAplicación1.png" alt="Logo">
     </div>
     <div *ngIf="!forgotpassword">
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form-container">
@@ -17,15 +17,15 @@
             <div class="form-group">
               <input 
                 class="form-control" 
-                type="email" 
-                formControlName="email" 
-                placeholder="Correo electrónico"
-                [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-              <div class="invalid-feedback" *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched">
-                El correo electrónico es requerido
+                type="text" 
+                formControlName="codigo" 
+                placeholder="Código de estudiante"
+                [class.is-invalid]="loginForm.get('codigo')?.invalid && loginForm.get('codigo')?.touched">
+              <div class="invalid-feedback" *ngIf="loginForm.get('codigo')?.errors?.['required'] && loginForm.get('codigo')?.touched">
+                El código de estudiante es requerido
               </div>
-              <div class="invalid-feedback" *ngIf="loginForm.get('email')?.errors?.['email'] && loginForm.get('email')?.touched">
-                Ingresa un correo electrónico válido
+              <div class="invalid-feedback" *ngIf="loginForm.get('codigo')?.errors?.['minlength'] && loginForm.get('codigo')?.touched">
+                El código debe tener al menos 5 caracteres
               </div>
             </div>
 
@@ -55,7 +55,7 @@
 
             <div class="links">
               <a class="forgot-link" (click)="btnForgotPassword()">¿Olvidaste tu contraseña?</a>
-              <a class="register-link" (click)="sendToRegister()">¿Es nuevo en la app? Crear una cuenta aquí</a>
+              <a class="register-link" (click)="sendToRegister()"> Crear una cuenta aquí</a>
             </div>
           </div>
         </div>
@@ -80,15 +80,15 @@
               <div class="form-group">
                 <input 
                   class="form-control" 
-                  type="email" 
-                  formControlName="email" 
-                  placeholder="Correo electrónico"
-                  [class.is-invalid]="forgotPasswordForm.get('email')?.invalid && forgotPasswordForm.get('email')?.touched">
-                <div class="invalid-feedback" *ngIf="forgotPasswordForm.get('email')?.errors?.['required'] && forgotPasswordForm.get('email')?.touched">
-                  El correo electrónico es requerido
+                  type="text" 
+                  formControlName="codigo" 
+                  placeholder="Código de estudiante"
+                  [class.is-invalid]="forgotPasswordForm.get('codigo')?.invalid && forgotPasswordForm.get('codigo')?.touched">
+                <div class="invalid-feedback" *ngIf="forgotPasswordForm.get('codigo')?.errors?.['required'] && forgotPasswordForm.get('codigo')?.touched">
+                  El código de estudiante es requerido
                 </div>
-                <div class="invalid-feedback" *ngIf="forgotPasswordForm.get('email')?.errors?.['email'] && forgotPasswordForm.get('email')?.touched">
-                  Ingresa un correo electrónico válido
+                <div class="invalid-feedback" *ngIf="forgotPasswordForm.get('codigo')?.errors?.['minlength'] && forgotPasswordForm.get('codigo')?.touched">
+                  El código debe tener al menos 5 caracteres
                 </div>
               </div>
 

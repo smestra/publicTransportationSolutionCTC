@@ -11,9 +11,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): Observable<any> {
+  login(codigo: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/login`, {
-      email,
+      codigo,
       password
     }).pipe(
       map((response: any) => {
@@ -27,8 +27,8 @@ export class AuthService {
     );
   }
 
-  forgotPassword(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/forgot-password`, { email });
+  forgotPassword(codigo: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/forgot-password`, { codigo });
   }
 
   resetPassword(token: string, newPassword: string): Observable<any> {

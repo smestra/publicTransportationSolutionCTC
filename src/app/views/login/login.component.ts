@@ -22,12 +22,12 @@ export class LoginComponent {
     private authService: AuthService
   ) {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      codigo: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
     this.forgotPasswordForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
+      codigo: ['', [Validators.required, Validators.minLength(5)]]
     });
   }
 
@@ -37,7 +37,7 @@ export class LoginComponent {
       this.errorMessage = '';
       
       this.authService.login(
-        this.loginForm.get('email')?.value,
+        this.loginForm.get('codigo')?.value,
         this.loginForm.get('password')?.value
       ).subscribe({
         next: (response) => {
@@ -59,7 +59,7 @@ export class LoginComponent {
       this.errorMessage = '';
       
       this.authService.forgotPassword(
-        this.forgotPasswordForm.get('email')?.value
+        this.forgotPasswordForm.get('codigo')?.value
       ).subscribe({
         next: (response) => {
           this.loading = false;
