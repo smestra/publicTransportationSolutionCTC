@@ -1,0 +1,37 @@
+<div class="main-container">
+  <nav class="navbar">
+    <div class="user-info" *ngIf="currentUser">
+      <span class="user-name">{{ currentUser.nombre }}</span>
+      <span class="user-details">
+        <strong> Código: </strong> {{ currentUser.codigo }} |
+        <strong> Carrera: </strong> {{ currentUser.carrera }}
+      </span>
+    </div>
+    <div class="logout-button-container">
+      <button (click)="logout()" class="btn-logout">
+        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+      </button>
+    </div>
+  </nav>
+
+  <div class="route-container">
+    <h1>Mis rutas</h1>
+    
+    <div class="timeline">
+      <div class="timeline-item" *ngFor="let step of routeSteps; let i = index" 
+           [ngClass]="{'completed': step.status === 'Completado', 'current': step.current}">
+        <div class="timeline-point">
+          <div class="point"></div>
+          <div class="line" *ngIf="i < routeSteps.length - 1"></div>
+        </div>
+        <div class="timeline-content">
+          <div class="time">{{step.time}}</div>
+          <div class="location">{{step.location}}</div>
+          <div class="status" [ngClass]="step.status.toLowerCase().replace(' ', '-')">
+            {{step.status}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
