@@ -1,22 +1,122 @@
-# Transporteestudiantilfront
+# Sistema de Transporte Estudiantil - Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+## Descripción
+Este proyecto es una aplicación web desarrollada en Angular que proporciona una interfaz para que los estudiantes puedan visualizar y dar seguimiento en tiempo real a las rutas de transporte estudiantil. La aplicación permite a los estudiantes ver el estado actual de su ruta de transporte, incluyendo las paradas completadas, la parada actual y las paradas pendientes.
 
-## Development server
+## Características Principales
+- Autenticación de usuarios mediante código estudiantil
+- Visualización de rutas en tiempo real
+- Timeline interactivo de paradas
+- Actualización automática del estado de la ruta
+- Interfaz responsive y amigable
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Estructura del Proyecto
 
-## Code scaffolding
+### Componentes Principales
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### Login Component (`src/app/views/login/`)
+- `login.component.ts`: Maneja la lógica de autenticación y validación del formulario de inicio de sesión. Implementa la autenticación mediante código estudiantil y redirige al home tras un login exitoso.
+- `login.component.html`: Template del formulario de login con diseño responsive. Incluye campos para código estudiantil y contraseña.
+- `login.component.css`: Estilos específicos del componente login, incluyendo animaciones y diseño responsive.
 
-## Build
+#### Home Component (`src/app/views/home/`)
+- `home.component.ts`: Gestiona la visualización de la información del usuario y el timeline de la ruta. Implementa actualizaciones en tiempo real del estado de la ruta.
+- `home.component.html`: Template que muestra el estado de la ruta y la información del usuario, incluyendo el timeline interactivo.
+- `home.component.css`: Estilos para el timeline y la disposición de elementos, con animaciones para los estados de las paradas.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Servicios
 
-## Running unit tests
+#### Auth Service (`src/app/services/auth.service.ts`)
+Maneja toda la lógica de autenticación:
+- Login con código estudiantil
+- Almacenamiento seguro del token JWT
+- Gestión del estado de autenticación
+- Cierre de sesión
+- Validación de tokens
+- Recuperación de información del usuario actual
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+#### Route Service (`src/app/services/route.service.ts`)
+Gestiona los datos de las rutas:
+- Obtención de la ruta actual
+- Actualización automática del estado de la ruta cada minuto
+- Manejo de estados de las paradas (completado, en proceso, pendiente)
+- Implementación de BehaviorSubject para actualizaciones en tiempo real
+
+### Configuración y Archivos de Soporte
+
+#### `app.module.ts`
+Módulo principal de la aplicación que configura:
+- Importación de módulos necesarios (HttpClientModule, RouterModule)
+- Declaración de componentes (Login, Home)
+- Registro de servicios (AuthService, RouteService)
+- Configuración de rutas y guardias
+
+#### `app-routing.module.ts`
+Define las rutas de la aplicación:
+- `/login`: Ruta de autenticación
+- `/home`: Ruta principal protegida
+- Implementación de guardias de autenticación
+- Redirecciones automáticas
+
+## Guía de Instalación
+
+1. Clonar el repositorio:
+\`\`\`bash
+git clone https://github.com/smestra/publicTransportationSolutionCTC.git
+\`\`\`
+
+2. Instalar dependencias:
+\`\`\`bash
+cd transporteestudiantilfront
+npm install
+\`\`\`
+
+3. Iniciar el servidor de desarrollo:
+\`\`\`bash
+ng serve
+\`\`\`
+
+La aplicación estará disponible en `http://localhost:4200`
+
+## Características Técnicas Destacadas
+
+### Sistema de Autenticación
+- Implementación de JWT para sesiones seguras
+- Interceptores HTTP para manejo automático de tokens
+- Guardias de ruta para protección de rutas autenticadas
+
+### Timeline Interactivo
+- Actualización en tiempo real sin necesidad de refrescar
+- Estados visuales diferenciados (completado, en proceso, pendiente)
+- Animaciones de transición suaves
+- Cálculo automático de estados según la hora actual
+
+### Gestión de Estado
+- Uso de BehaviorSubject para manejo reactivo del estado
+- Actualización automática cada minuto
+- Limpieza automática de suscripciones
+- Manejo eficiente de la memoria
+
+## Buenas Prácticas Implementadas
+- Componentes modulares y reutilizables
+- Servicios singleton para lógica de negocio centralizada
+- Tipado fuerte con TypeScript
+- Manejo de errores centralizado
+- Limpieza automática de suscripciones
+- Uso de observables para datos reactivos
+
+## Comandos Útiles
+
+- `ng serve`: Inicia el servidor de desarrollo
+- `ng build`: Compila el proyecto
+- `ng test`: Ejecuta las pruebas unitarias
+- `ng e2e`: Ejecuta las pruebas end-to-end
+
+## Autor
+- Santiago Mestra - Desarrollo Frontend
+
+## Licencia
+Este proyecto está bajo la Licencia MIT.
 
 ## Running end-to-end tests
 

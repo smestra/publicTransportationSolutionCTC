@@ -9,13 +9,11 @@ const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }, // Agregar esta línea
-  { path: '**', redirectTo: '' } // Ruta wildcard para manejar rutas no encontradas
+  { path: '**', redirectTo: '' }, // Ruta wildcard para manejar rutas no encontradas
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-  
-}
+export class AppRoutingModule {}

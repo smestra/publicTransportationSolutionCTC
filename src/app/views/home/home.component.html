@@ -3,21 +3,21 @@
     <div class="user-info" *ngIf="currentUser">
       <span class="user-name">{{ currentUser.nombre }}</span>
       <span class="user-details">
-        <strong> Código: </strong> {{ currentUser.codigo }} |
+        <strong> Código: </strong> {{ currentUser.codigo }} <br>
         <strong> Carrera: </strong> {{ currentUser.carrera }}
       </span>
     </div>
     <div class="logout-button-container">
       <button (click)="logout()" class="btn-logout">
-        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+        <span><img src="../../../assets/logout_icon_184025.svg" alt=""></span><br><i class="fas fa-sign-out-alt"></i> Cerrar Sesión
       </button>
     </div>
   </nav>
 
   <div class="route-container">
-    <h1>Mis rutas</h1>
-    
-    <div class="timeline">
+    <h1>Notificaciones</h1>
+    <button (click)="showNotifications()"> Mostrar notificaciones</button>
+    <!-- <div class="timeline">
       <div class="timeline-item" *ngFor="let step of routeSteps; let i = index" 
            [ngClass]="{'completed': step.status === 'Completado', 'current': step.current}">
         <div class="timeline-point">
@@ -32,6 +32,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
