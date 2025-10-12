@@ -1,55 +1,93 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { RouteService, RouteStep } from '../../services/route.service';
-import { Subscription } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
+import { Notificacion } from 'src/app/models/notifications.models';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   currentUser: any = null;
-  routeSteps: RouteStep[] = [];
-  private routeSubscription?: Subscription;
+  notificaciones: any[] = [];
 
   constructor(
     private authService: AuthService,
-    private routeService: RouteService,
+    private notificationService: NotificationService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    // Obtener información del usuario actual
+    // Obtener usuario actual
     this.currentUser = this.authService.getCurrentUser();
+    
     if (!this.currentUser) {
       this.router.navigate(['/login']);
       return;
     }
 
-    // Suscribirse a las actualizaciones de la ruta
-    this.routeSubscription = this.routeService.getCurrentRoute().subscribe({
-      next: (steps) => {
-        this.routeSteps = steps;
+    // Cargar notificaciones
+    this.cargarNotificaciones();
+  }
+
+  // cargarNotificaciones(): void {
+  //   console.log('Cargando notificaciones para el usuario:', this.currentUser.codigo);
+  //   this.notificationService.obtenerNotificacionesUsuario(this.currentUser.codigo)
+  //     .subscribe({
+  //       next: (data) => {
+  //         this.notificaciones = data;
+  //         console.log('Notificaciones recibidas:', this.notificaciones);
+  //       },
+  //       error: (error) => {
+  //         console.error('Error al cargar notificaciones:', error);
+  //       }
+  //     });
+  // }
+
+  // esGlobal(notificacion: any): boolean {
+  //   return !notificacion.usuario;
+  // }
+  cargarNotificaciones(): void {
+  if (!this.currentUser?.codigo) {
+    console.error('No hay usuario autenticado');
+    return;
+  }
+
+  console.log('Cargando notificaciones para el usuario:', this.currentUser.codigo);
+  
+  this.notificationService.obtenerNotificacionesUsuario(this.currentUser.codigo)
+    .subscribe(
+      (data) => {
+        this.notificaciones = data;
+        console.log('Notificaciones recibidas:', this.notificaciones);
       },
-      error: (error) => {
-        console.error('Error al obtener la ruta:', error);
+      (error) => {
+        console.error('Error al cargar notificaciones:', error);
       }
-    });
-  }
+    );
+}
 
-  ngOnDestroy(): void {
-    // Cancelar la suscripción cuando el componente se destruye
-    if (this.routeSubscription) {
-      this.routeSubscription.unsubscribe();
-    }
-  }
-
-  showNotifications(): void {
-    
-  }
-
+esGlobal(notificacion: Notificacion): boolean {
+  return !notificacion.usuario;
+}
+marcarComoLeida(notificacion: Notificacion): void {
+  this.notificationService.marcarComoLeida(notificacion.id)
+    .subscribe(
+      (response) => {
+        console.log('Notificación marcada como leída');
+        // Actualizar la notificación en el array local
+        const notif = this.notificaciones.find(n => n.id === notificacion.id);
+        if (notif) {
+          notif.leida = true;
+        }
+      },
+      (error) => {
+        console.error('Error al marcar como leída:', error);
+      }
+    );
+}
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

@@ -1,37 +1,92 @@
-<div class="main-container">
+<div class="container">
+  <!-- Navbar simple -->
   <nav class="navbar">
-    <div class="user-info" *ngIf="currentUser">
-      <span class="user-name">{{ currentUser.nombre }}</span>
-      <span class="user-details">
-        <strong> Código: </strong> {{ currentUser.codigo }} <br>
-        <strong> Carrera: </strong> {{ currentUser.carrera }}
-      </span>
-    </div>
-    <div class="logout-button-container">
-      <button (click)="logout()" class="btn-logout">
-        <span><img src="../../../assets/logout_icon_184025.svg" alt=""></span><br><i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-      </button>
-    </div>
+    <h2>Bienvenido {{ currentUser?.nombre }}</h2>
+    <button (click)="logout()">Cerrar Sesión</button>
   </nav>
 
-  <div class="route-container">
-    <h1>Notificaciones</h1>
-    <button (click)="showNotifications()"> Mostrar notificaciones</button>
-    <!-- <div class="timeline">
-      <div class="timeline-item" *ngFor="let step of routeSteps; let i = index" 
-           [ngClass]="{'completed': step.status === 'Completado', 'current': step.current}">
-        <div class="timeline-point">
-          <div class="point"></div>
-          <div class="line" *ngIf="i < routeSteps.length - 1"></div>
-        </div>
-        <div class="timeline-content">
-          <div class="time">{{step.time}}</div>
-          <div class="location">{{step.location}}</div>
-          <div class="status" [ngClass]="step.status.toLowerCase().replace(' ', '-')">
-            {{step.status}}
-          </div>
-        </div>
+  <!-- Lista de notificaciones -->
+  <div class="notificaciones-section">
+    <div class="header-notificaciones">
+      <h3>Notificaciones ({{ notificaciones.length }})</h3>
+      <button class="btn-refresh" (click)="cargarNotificaciones()">
+         🔄 Actualizar
+      </button>
+    </div>
+
+    <!-- Sin notificaciones -->
+    <div *ngIf="notificaciones.length === 0" class="sin-notificaciones">
+      <p>📭 No hay notificaciones</p>
+    </div>
+
+    <!-- Lista de notificaciones -->
+    <div
+      class="notificacion-item"
+      *ngFor="let notif of notificaciones"
+      [class.global]="esGlobal(notif)"
+      [class.personal]="!esGlobal(notif)"
+      [class.no-leida]="!notif.leida"
+    >
+      <!-- Header de notificación -->
+      <div class="notif-header">
+        <span class="badge" [class.badge-global]="esGlobal(notif)" [class.badge-personal]="!esGlobal(notif)">
+          {{ esGlobal(notif) ? "🌍 Global" : "👤 Personal" }}
+        </span>
+        <span class="estado" *ngIf="!notif.leida">  ● Nueva</span>
+        <span class="fecha">{{ notif.fecha | date : "dd/MM/yyyy HH:mm" }}</span>
       </div>
-    </div> -->
+
+      <!-- Mensaje -->
+      <p class="mensaje">{{ notif.mensaje }}</p>
+
+      <!-- Información de ruta -->
+      <div class="ruta-info" *ngIf="notif.ruta">
+        <strong>Ruta:</strong> {{ notif.ruta.nombre }}
+        <span class="ruta-detalle" *ngIf="notif.ruta.origen && notif.ruta.destino">
+          ({{ notif.ruta.origen }} → {{ notif.ruta.destino }})
+        </span>
+      </div>
+
+      <!-- Acciones -->
+      <div class="notif-actions" *ngIf="!notif.leida">
+        <button class="btn-marcar-leida" (click)="marcarComoLeida(notif.id)">
+          ✓ Marcar como leída
+        </button>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- <div class="container">
+  <!-- Navbar simple -->
+  <!-- <nav class="navbar">
+    <h2>Bienvenido {{ currentUser?.nombre }}</h2>
+    <button (click)="logout()">Cerrar Sesión</button>
+  </nav> -->
+
+  <!-- Lista de notificaciones -->
+  <!-- <div class="notificaciones-section">
+    <h3>Notificaciones ({{ notificaciones.length }})</h3>
+
+    <div *ngIf="notificaciones.length === 0" class="sin-notificaciones">
+      <p>No hay notificaciones</p>
+    </div>
+
+    <div
+      class="notificacion-item"
+      *ngFor="let notif of notificaciones"
+      [class.global]="esGlobal(notif)"
+    >
+      <div class="notif-header">
+        <span class="badge">{{ esGlobal(notif) ? "Global" : "Personal" }}</span>
+        <span class="fecha">{{ notif.fecha | date : "medium" }}</span>
+      </div>
+
+      <p class="mensaje">{{ notif.mensaje }}</p>
+
+      <div class="ruta-info">
+        <strong>Ruta:</strong> {{ notif.ruta.nombre }}
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -6,8 +6,8 @@ import { HomeComponent } from './views/home/home.component'; // Agregar esta lí
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: LandingPageComponent },
-  { path: 'login', component: LoginComponent },
+  // { path: '', component: LandingPageComponent },
+  { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }, // Agregar esta línea
   { path: '**', redirectTo: '' }, // Ruta wildcard para manejar rutas no encontradas
 ];
