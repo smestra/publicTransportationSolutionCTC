@@ -11,7 +11,7 @@ import { Notificacion } from 'src/app/models/notifications.models';
 })
 export class HomeComponent implements OnInit {
   currentUser: any = null;
-  notificaciones: any[] = [];
+  notificaciones: Notificacion[] = [];
 
   constructor(
     private authService: AuthService,
@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Obtener usuario actual
     this.currentUser = this.authService.getCurrentUser();
     
     if (!this.currentUser) {
@@ -28,66 +27,86 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    // Cargar notificaciones
     this.cargarNotificaciones();
   }
 
-  // cargarNotificaciones(): void {
-  //   console.log('Cargando notificaciones para el usuario:', this.currentUser.codigo);
-  //   this.notificationService.obtenerNotificacionesUsuario(this.currentUser.codigo)
-  //     .subscribe({
-  //       next: (data) => {
-  //         this.notificaciones = data;
-  //         console.log('Notificaciones recibidas:', this.notificaciones);
-  //       },
-  //       error: (error) => {
-  //         console.error('Error al cargar notificaciones:', error);
-  //       }
-  //     });
-  // }
-
-  // esGlobal(notificacion: any): boolean {
-  //   return !notificacion.usuario;
-  // }
   cargarNotificaciones(): void {
-  if (!this.currentUser?.codigo) {
-    console.error('No hay usuario autenticado');
-    return;
+    if (!this.currentUser?.codigo) {
+      console.error('No hay usuario autenticado');
+      return;
+    }
+
+    console.log('=== CARGANDO NOTIFICACIONES ===');
+    console.log('Usuario:', this.currentUser.codigo);
+    
+    this.notificationService.obtenerNotificacionesUsuario(this.currentUser.codigo)
+      .subscribe({
+        next: (data) => {
+          console.log('Datos recibidos del backend:', data);
+          console.log('Cantidad de notificaciones:', data.length);
+          
+          // Ordenar por fecha (más recientes primero)
+          this.notificaciones = data.sort((a, b) => {
+            return new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
+          });
+          
+          console.log('Notificaciones asignadas:', this.notificaciones);
+        },
+        error: (error) => {
+          console.error('Error al cargar notificaciones:', error);
+          console.error('Status:', error.status);
+          console.error('Mensaje:', error.message);
+        }
+      });
   }
 
-  console.log('Cargando notificaciones para el usuario:', this.currentUser.codigo);
-  
-  this.notificationService.obtenerNotificacionesUsuario(this.currentUser.codigo)
-    .subscribe(
-      (data) => {
-        this.notificaciones = data;
-        console.log('Notificaciones recibidas:', this.notificaciones);
-      },
-      (error) => {
-        console.error('Error al cargar notificaciones:', error);
-      }
-    );
-}
+  esGlobal(notificacion: Notificacion): boolean {
+    return !notificacion.usuario;
+  }
 
-esGlobal(notificacion: Notificacion): boolean {
-  return !notificacion.usuario;
-}
-marcarComoLeida(notificacion: Notificacion): void {
-  this.notificationService.marcarComoLeida(notificacion.id)
-    .subscribe(
-      (response) => {
-        console.log('Notificación marcada como leída');
-        // Actualizar la notificación en el array local
-        const notif = this.notificaciones.find(n => n.id === notificacion.id);
-        if (notif) {
-          notif.leida = true;
+  marcarComoLeida(notificacion: Notificacion): void {
+    if (!this.currentUser?.codigo || notificacion.leida) {
+      return; // No hay usuario o ya está leída
+    }
+
+    console.log('Marcando notificación como leída:', notificacion.id);
+    
+    this.notificationService.marcarComoLeida(notificacion.id, this.currentUser.codigo)
+      .subscribe({
+        next: (response) => {
+          console.log('Notificación marcada como leída:', response);
+          // Actualizar solo la notificación específica para este usuario
+          notificacion.leida = true;
+        },
+        error: (error) => {
+          console.error('Error al marcar como leída:', error);
+          alert('No se pudo marcar la notificación como leída. Por favor, intente nuevamente.');
         }
-      },
-      (error) => {
-        console.error('Error al marcar como leída:', error);
-      }
-    );
-}
+      });
+  }
+
+  eliminarNotificacion(notificacion: Notificacion): void {
+    if (!this.currentUser?.codigo) {
+      return; // No hay usuario
+    }
+
+    if (confirm('¿Está seguro de que desea eliminar esta notificación?')) {
+      console.log('Eliminando notificación:', notificacion.id);
+
+      this.notificationService.eliminarNotificacion(notificacion.id, this.currentUser.codigo)
+        .subscribe({
+          next: () => {
+            // eliminar la notificación de la lista local del usuario actual
+            this.notificaciones = this.notificaciones.filter(n => n.id !== notificacion.id);
+          },
+          error: (error) => {
+            console.error('Error al eliminar notificación:', error);
+            alert('No se pudo eliminar la notificación. Por favor, intente nuevamente.');
+          }
+        });
+    }
+  }
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
