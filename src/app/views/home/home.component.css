@@ -1,0 +1,203 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #2f54f5;
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.navbar button {
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.navbar button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.notificaciones-section {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-notificaciones {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.header-notificaciones h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.btn-refresh {
+  padding: 8px 16px;
+  background: #2f54f5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-refresh:hover {
+  background: #5568d3;
+  transform: scale(1.05);
+}
+.deleteContainer{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+.btn-eliminarNotificacion{
+  padding: 8px 16px;
+  background: #ff4444;
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-eliminarNotificacion:hover {
+  background-color: #cc0000;
+  transform: scale(1.02);
+}
+.notificacion-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px; /* IMPORTANTE: Espacio entre tarjetas */
+  border-left: 4px solid #667eea;
+  background-color: white;
+  transition: all 0.3s ease;
+  display: block; /* IMPORTANTE: Cada tarjeta es un bloque */
+}
+
+.notificacion-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.btn-eliminar:hover {
+  background-color: #cc0000;
+  transform: scale(1.02);
+}
+
+.notificacion-item.global {
+  border-left-color: #ff9800;
+  background: #fff8f0;
+}
+
+.notificacion-item.no-leida {
+  border-left-width: 6px;
+  background-color: #f0f8ff;
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.2);
+}
+
+.notif-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  background: #667eea;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-global {
+  background-color: #ff9800;
+}
+
+.badge-personal {
+  background-color: #28a745;
+}
+
+.estado {
+  color: #dc3545;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.fecha {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.mensaje {
+  margin: 10px 0;
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.ruta-info {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+.ruta-detalle {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.notif-actions {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.btn-marcar-leida {
+  padding: 6px 14px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.btn-marcar-leida:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.sin-notificaciones {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  font-size: 1.2rem;
+}

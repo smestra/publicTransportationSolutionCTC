@@ -1,0 +1,61 @@
+<div class="container">
+  <!-- Navbar simple -->
+  <nav class="navbar">
+    <h2>Bienvenido {{ currentUser?.nombre }}</h2>
+    <button (click)="logout()">Cerrar Sesión</button>
+  </nav>
+
+  <!-- Lista de notificaciones -->
+  <div class="notificaciones-section">
+    <div class="header-notificaciones">
+      <h3>Notificaciones ({{ notificaciones.length }})</h3>
+      <button class="btn-refresh" (click)="cargarNotificaciones()">
+         Actualizar
+      </button>
+    </div>
+
+    <!-- Sin notificaciones -->
+    <div *ngIf="notificaciones.length === 0" class="sin-notificaciones">
+      <p> No hay notificaciones</p>
+    </div>
+
+    <!-- Lista de notificaciones -->
+    <div
+      class="notificacion-item"
+      *ngFor="let notif of notificaciones"
+      [class.global]="esGlobal(notif)"
+      [class.personal]="!esGlobal(notif)"
+      [class.no-leida]="!notif.leida"
+    >
+      <!-- Header de notificación -->
+      <div class="notif-header">
+        <span class="badge" 
+              [class.badge-global]="esGlobal(notif)" 
+              [class.badge-personal]="!esGlobal(notif)">
+          {{ esGlobal(notif) ? " Global" : "Personal" }}
+        </span>
+        <span class="estado" *ngIf="!notif.leida">● Nueva</span>
+        <span class="fecha">{{ notif.fecha | date : "medium" }}</span>
+      </div>
+
+      <!-- Mensaje -->
+      <p class="mensaje">{{ notif.mensaje }}</p>
+
+      <!-- Información de ruta -->
+      <div class="ruta-info" *ngIf="notif.ruta">
+        <strong>Ruta:</strong> {{ notif.ruta.nombre }}
+        <span class="ruta-detalle" *ngIf="notif.ruta.origen && notif.ruta.destino">
+          ({{ notif.ruta.origen }} → {{ notif.ruta.destino }})
+        </span>
+      </div>
+      <div class="deleteContainer"><button class = "btn-eliminarNotificacion" (click)="eliminarNotificacion(notif)">Borrar notificación</button></div>
+     
+      <div class="notif-actions" *ngIf="!notif.leida">
+        <button class="btn-marcar-leida" (click)="marcarComoLeida(notif)">
+          ✓ Marcar como leída
+        </button>
+        
+      </div>
+    </div>
+  </div>
+</div>
