@@ -106,6 +106,19 @@ export class HomeComponent implements OnInit {
         });
     }
   }
+  // crearNotificacion(notificacion: Notificacion): void {
+  //   this.notificationService.crearNotificacion(notificacion)
+  //     .subscribe({
+  //       next: (response) => {
+  //         console.log('Notificación creada:', response);
+  //         this.notificaciones.unshift(response); // Agregar al inicio de la lista
+  //       },
+  //       error: (error) => {
+  //         console.error('Error al crear notificación:', error);
+  //         alert('No se pudo crear la notificación. Por favor, intente nuevamente.');
+  //       }
+  //     });
+  // }
 
   logout(): void {
     this.authService.logout();

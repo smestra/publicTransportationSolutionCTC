@@ -31,5 +31,17 @@ export class NotificationService {
       params: { codigoUsuario }
     });
   }
+
+  // crearNotificacion(mensaje: string, rutaId: number, usuarioCodigo?: string): Observable<Notificacion> {
+  //   const notificacion: Notificacion = {
+  //     id: 0,
+  //     mensaje,
+  //     ruta: Number(rutaId),
+  //     leida: false,
+  //     fecha: String(new Date()),
+  //     usuarioCodigo: usuarioCodigo
+  //   };
+  //   return this.http.post<Notificacion>(this.apiUrl, notificacion);
+  // }
 }
 
