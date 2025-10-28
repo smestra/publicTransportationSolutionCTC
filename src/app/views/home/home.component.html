@@ -10,7 +10,7 @@
     <div class="header-notificaciones">
       <h3>Notificaciones ({{ notificaciones.length }})</h3>
       <button class="btn-refresh" (click)="cargarNotificaciones()" > <img src="../../../assets/actualizar.png" alt="">Actualizar</button>
-      <button class="btn-crearNotificacion">Notificar novedad</button>
+      <button class="btn-crearNotificacion" (click)="irACrearNotificacion()">Notificar novedad</button>
     </div>
 
     <!-- Sin notificaciones -->
@@ -47,14 +47,14 @@
           ({{ notif.ruta.origen }} → {{ notif.ruta.destino }})
         </span>
       </div>
-      <div class="deleteContainer"><button class = "btn-eliminarNotificacion" (click)="eliminarNotificacion(notif)">Borrar notificación</button></div>
-     
-      <div class="notif-actions" *ngIf="!notif.leida">
+            <div class="notif-actions" *ngIf="!notif.leida"><br>
         <button class="btn-marcar-leida" (click)="marcarComoLeida(notif)">
           ✓ Marcar como leída
         </button>
         
       </div>
+      <div class="deleteContainer"><button class = "btn-eliminarNotificacion" (click)="eliminarNotificacion(notif)">Borrar notificación</button></div>
     </div>
   </div>
 </div>
+

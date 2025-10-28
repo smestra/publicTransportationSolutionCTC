@@ -1,0 +1,146 @@
+<div class="crear-notificacion-container">
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <button class="btn-back" (click)="volverAlHome()">
+        ← Volver
+      </button>
+      <h2>Crear Nueva Notificación</h2>
+    </div>
+    <div class="nav-right">
+      <span class="user-name">{{ currentUser?.nombre }}</span>
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </nav>
+
+  <!-- Formulario -->
+  <div class="form-container">
+    <div class="form-card">
+      <div class="card-header">
+        <h3> <img src="../../../assets/notificacion.png" alt=""> Nueva Notificación</h3>
+        <p>Completa los campos para enviar una notificación a los usuarios</p>
+      </div>
+
+      <div class="card-body">
+        <!-- Tipo de notificación -->
+        <div class="form-group">
+          <label class="form-label">Tipo de Notificación: *</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input 
+                type="radio" 
+                name="tipo" 
+                value="global" 
+                [(ngModel)]="formulario.tipo">
+              <div class="radio-content">
+                <span class="radio-icon">🌍</span>
+                <div class="radio-text">
+                  <strong>Global</strong>
+                  <small>Todos los usuarios verán esta notificación</small>
+                </div>
+              </div>
+            </label>
+
+            <label class="radio-option">
+              <input 
+                type="radio" 
+                name="tipo" 
+                value="personal" 
+                [(ngModel)]="formulario.tipo">
+              <div class="radio-content">
+                <span class="radio-icon">👤</span>
+                <div class="radio-text">
+                  <strong>Personal</strong>
+                  <small>Solo un usuario específico la verá</small>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Selección de ruta -->
+        <div class="form-group">
+          <label class="form-label">Ruta: *</label>
+          <select [(ngModel)]="formulario.rutaId" class="form-control">
+            <option [ngValue]="null">Selecciona una ruta</option>
+            <option *ngFor="let ruta of rutas" [ngValue]="ruta.id">
+              {{ ruta.nombre }} ({{ ruta.origen }} → {{ ruta.destino }})
+            </option>
+          </select>
+          <small class="form-hint">
+            <i class="icon"></i> Selecciona la ruta relacionada con esta notificación
+          </small>
+        </div>
+
+        <!-- Código de usuario (solo si es personal) -->
+        <div class="form-group" *ngIf="formulario.tipo === 'personal'">
+          <label class="form-label">Código de Usuario: *</label>
+          <input 
+            type="text" 
+            [(ngModel)]="formulario.codigoUsuario" 
+            class="form-control"
+            placeholder="Ej: 7522420031"
+            maxlength="20">
+          <small class="form-hint">
+            <i class="icon"></i> Ingresa el código del estudiante que recibirá la notificación
+          </small>
+        </div>
+
+        <!-- Mensaje -->
+        <div class="form-group">
+          <label class="form-label">Mensaje: *</label>
+          <textarea 
+            [(ngModel)]="formulario.mensaje" 
+            class="form-control textarea"
+            rows="6"
+            placeholder="Escribe aquí el mensaje de la notificación...
+            
+Ejemplo: El bus de la ruta Centro-Universidad saldrá con 15 minutos de retraso debido al tráfico."
+            maxlength="500"></textarea>
+          <div class="textarea-info">
+            <small class="form-hint">
+              <i class="icon"></i> Sé claro y específico en tu mensaje
+            </small>
+            <small class="char-count">
+              {{ formulario.mensaje.length }}/500 caracteres
+            </small>
+          </div>
+        </div>
+
+        <!-- Vista previa -->
+        <div class="preview-section" *ngIf="formulario.mensaje.trim()">
+          <h4>Vista Previa:</h4>
+          <div class="preview-card" 
+               [class.preview-global]="formulario.tipo === 'global'"
+               [class.preview-personal]="formulario.tipo === 'personal'">
+            <div class="preview-badge">
+              {{ formulario.tipo === 'global' ? '🌍 Global' : '👤 Personal' }}
+            </div>
+            <p class="preview-message">{{ formulario.mensaje }}</p>
+            <div class="preview-route" *ngIf="formulario.rutaId">
+  <strong>Ruta:</strong>
+  {{ getRutaNombre(formulario.rutaId) }}
+</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acciones -->
+      <div class="card-footer">
+        <button 
+          class="btn btn-secondary" 
+          (click)="limpiarFormulario()"
+          [disabled]="loading">
+        <img src="" alt=""> Limpiar
+        </button>
+        <button 
+          class="btn btn-primary" 
+          (click)="crearNotificacion()"
+          [disabled]="loading || !formulario.mensaje.trim() || !formulario.rutaId">
+          <span *ngIf="!loading">✓ Crear Notificación</span>
+          <span *ngIf="loading"> <img src="" alt="cargando"> Creando...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
