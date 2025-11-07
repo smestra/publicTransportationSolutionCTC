@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,18 +9,21 @@ import { LoginComponent } from './views/login/login.component';
 import { LandingPageComponent } from './views/landing-page/landing-page.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { HomeComponent } from './views/home/home.component';
+import { CrearNotificacionComponent } from './views/crear-notificacion/crear-notificacion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LandingPageComponent,
-    HomeComponent
+    HomeComponent,
+    CrearNotificacionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule
   ],
   providers: [

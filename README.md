@@ -113,7 +113,7 @@ La aplicación estará disponible en `http://localhost:4200`
 - `ng e2e`: Ejecuta las pruebas end-to-end
 
 ## Autor
-- Santiago Mestra - Desarrollo Frontend
+- Sebastian Mestra - Desarrollo Frontend
 
 ## Licencia
 Este proyecto está bajo la Licencia MIT.

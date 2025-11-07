@@ -3,17 +3,17 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #c2e7ffa0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .login-box {
   width: 440px;
   padding: 44px;
   border-radius: 2%;
-  border: 1px solid #0191ff;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0 25px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #C2E7FF;
+  background-color: #C2E7FF;
+  box-shadow: 0 25px 8px rgba(0, 0, 0, 0.5);
 }
 
 .app-logo {
@@ -69,14 +69,15 @@
   font-size: 14px;
   border: 1px solid #8f8f8f;
   border-radius: 5px;
-  background-color: rgba(128, 128, 128, 0);
+  background-color: rgba(128, 128, 128, 0.1);
   color: #000000;
 }
 
 /* Estilo para el placeholder en Chrome, Safari y Edge */
 .form-control::placeholder {
-  color: #8f8f8f;
+  color: #464646;
   opacity: 1;
+  ;
 }
 
 /* Estilo para el placeholder en Firefox */

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Notificacion } from '../models/notifications.models';
+import { Notificacion, NotificacionRequest } from '../models/notifications.models';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +31,6 @@ export class NotificationService {
       params: { codigoUsuario }
     });
   }
+  crearNotificacion(request: NotificacionRequest):Observable<Notificacion> { return this.http.post<Notificacion>(this.apiUrl, request);
 }
-
+}

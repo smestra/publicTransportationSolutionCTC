@@ -20,7 +20,7 @@
 }
 
 .logo {
-  height: 40px;
+  height: 60px;
   width: auto;
 }
 
@@ -50,6 +50,7 @@
   padding: 4rem 2rem;
   background: #f8f9fa;
   flex: 1;
+  background-color: #c2e7ffa0;
 }
 
 .hero-content {
@@ -104,12 +105,17 @@
 }
 
 .feature-card {
-  background: white;
+  background: #C2E7FF;
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.5);
   text-align: center;
   transition: all 0.3s;
+  img {
+    width: 50px;
+    height: auto;
+    margin-bottom: 1rem;
+  }
 }
 
 .feature-card:hover {

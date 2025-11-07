@@ -60,9 +60,9 @@ export class LoginComponent implements OnInit {
           if (error.status === 403 || error.status === 401) {
             this.errorMessage = 'Credenciales inválidas';
           } else if (error.status === 400) {
-            this.errorMessage = 'Datos de entrada inválidos';
+            this.errorMessage = 'Datos inválidos';
           } else if (error.status === 0) {
-            this.errorMessage = 'No se pudo conectar con el servidor. Verifica que esté ejecutándose.';
+            this.errorMessage = 'No se pudo conectar con el servidor.';
           } else {
             this.errorMessage = error.error || 'Error en el servidor. Por favor, intenta más tarde.';
           }
@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
   sendToRegister() {
     this.router.navigate(['/register']);
   }
-  hideComponent: boolean = false;
+  // hideComponent: boolean = false;
 
  goToLandingPage() {
     this.router.navigate(['/']);
