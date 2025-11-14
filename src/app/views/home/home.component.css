@@ -6,7 +6,7 @@
 }
 
 .navbar {
-  display: flex;
+  display: block;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
@@ -26,6 +26,7 @@
   cursor: pointer;
   font-weight: 600;
   transition: all 0.3s;
+ align-items: end  ;
 }
 
 .navbar button:hover {
@@ -168,7 +169,7 @@
 }
 
 .estado {
-  color: #dc3545;
+  color:rgb(255, 0, 0);
   font-weight: bold;
   font-size: 0.85rem;
 }

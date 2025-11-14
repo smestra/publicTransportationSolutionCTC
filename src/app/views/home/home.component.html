@@ -2,6 +2,7 @@
   <!-- Navbar simple -->
   <nav class="navbar">
     <h2>Bienvenido {{ currentUser?.nombre }}</h2>
+    <h6>Cargo: {{ currentUser?.carrera }}</h6>
     <button (click)="logout()">Cerrar Sesión</button>
   </nav>
 
@@ -9,7 +10,7 @@
   <div class="notificaciones-section">
     <div class="header-notificaciones">
       <h3>Notificaciones ({{ notificaciones.length }})</h3>
-      <button class="btn-refresh" (click)="cargarNotificaciones()" > <img src="../../../assets/actualizar.png" alt="">Actualizar</button>
+      <button class="btn-refresh" (click)="cargarNotificaciones()" > <img src="../../../assets/actualizar.png" alt="">Refrescar</button>
       <button class="btn-crearNotificacion" (click)="irACrearNotificacion()">Notificar novedad</button>
     </div>
 

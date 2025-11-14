@@ -23,7 +23,7 @@
                 class="form-control"
                 type="text"
                 formControlName="codigo"
-                placeholder="Código de estudiante"
+                placeholder="Código de trabajador"
                 [class.is-invalid]="
                   loginForm.get('codigo')?.invalid &&
                   loginForm.get('codigo')?.touched
@@ -33,7 +33,7 @@
                 class="invalid-feedback"
                 *ngIf="loginForm.get('codigo')?.errors?.['required'] && loginForm.get('codigo')?.touched"
               >
-                El código de estudiante es requerido
+                El código de trabajador es requerido
               </div>
               <div
                 class="invalid-feedback"

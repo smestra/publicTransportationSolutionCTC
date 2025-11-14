@@ -1,6 +1,6 @@
 .crear-notificacion-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #b4a6c3 100%);
+  background: linear-gradient(135deg, #97a8f2da 0%, #333136 100%);
   box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
 }
 
@@ -30,7 +30,7 @@
   background: transparent;
   border: 2px solid #667eea;
   color: #667eea;
-  padding: 8px 16px;
+  padding: 9px 10px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
@@ -46,19 +46,19 @@
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 25px;
 }
 
 .user-name {
-  color: #666;
-  font-weight: 600;
+  color: #272727;
+  font-weight: 500;
 }
 
 .btn-logout {
   background: #dc3545;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 10px 16px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
@@ -78,7 +78,7 @@
 }
 
 .form-card {
-  background: white;
+  background: rgba(255, 255, 255, 0.893);
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   overflow: hidden;

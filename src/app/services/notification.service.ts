@@ -11,7 +11,7 @@ export class NotificationService {
 
   constructor(private http: HttpClient) {}
 
-  obtenerNotificacionesUsuario(codigo: string): Observable<Notificacion[]> {
+  obtenerNotificacionesUsuario(codigo: string,): Observable<Notificacion[]> {
     const url = `${this.apiUrl}/usuarios/${codigo}/notificaciones`;
     console.log('URL completa:', url);
     return this.http.get<Notificacion[]>(url);
